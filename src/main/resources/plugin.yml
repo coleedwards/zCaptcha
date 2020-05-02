@@ -1,0 +1,5 @@
+name: zCaptcha
+version: 1.0.0
+main: com.mizuledevelopment.zcaptcha.zCaptcha
+softdepend: [Vault]
+author: "Cole Edwards"

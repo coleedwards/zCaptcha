@@ -1,0 +1,21 @@
+# Thank you for using zCaptcha
+settings:
+  database: "FLAT" # FLAT, MONGO
+  mongo:
+    host: "127.0.0.1"
+    port: 27017
+    database: "captcha"
+    auth:
+      enabled: false
+      username: "admin"
+      password: "admin"
+      database: "admin"
+  runnable_delay: 40 # 20 ticks = 1 second
+  time_to_complete: 120 # seconds
+  command: "kick %player% Failed to complete captcha"
+messages:
+  captcha_required: "&aYou are required to complete a captcha. Please visit http://mizuledevelopment.com/captcha/captcha.php?key=%key% to complete!"
+  captcha_completed: "&aThank you for completing the captcha."
+requirements:
+  rank: Default
+  not_authenticated_before: true
