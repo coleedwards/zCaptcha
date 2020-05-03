@@ -27,6 +27,9 @@ public class RequirementHandler {
         for (String key : zCaptcha.getInstance().getConfig().getConfigurationSection("requirements").getKeys(false)) {
             for (IRequirement requirement : requirementsExist) {
                 if (requirement.getRequirementKey().equalsIgnoreCase(key)) {
+                    if (requirement instanceof RankRequirementImpl && ((RankRequirementImpl) requirement).getChat() == null) {
+                        continue;
+                    }
                     requirementsRequired.add(requirement);
                     break orgLoop;
                 }

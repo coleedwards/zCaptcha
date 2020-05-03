@@ -1,11 +1,14 @@
 package com.mizuledevelopment.zcaptcha.requirement.impl;
 
 import com.mizuledevelopment.zcaptcha.requirement.IRequirement;
+import lombok.Getter;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 
+@Getter
 public class RankRequirementImpl implements IRequirement {
 
     private Chat chat;
@@ -13,7 +16,10 @@ public class RankRequirementImpl implements IRequirement {
     private String value;
 
     public RankRequirementImpl(Plugin plugin) {
-        chat = Bukkit.getServer().getServicesManager().getRegistration(Chat.class).getProvider();
+        RegisteredServiceProvider<Chat> chatRegisteredServiceProvider = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
+        if (chatRegisteredServiceProvider != null) {
+            chat = chatRegisteredServiceProvider.getProvider();
+        }
         this.value = plugin.getConfig().getString("requirements." + getRequirementKey());
     }
 
