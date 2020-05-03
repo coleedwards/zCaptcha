@@ -12,6 +12,6 @@ public class NotAuthenticatedBeforeImpl implements IRequirement {
 
     @Override
     public boolean meetsRequirement(Player player) {
-        return zCaptcha.getInstance().getStorage().hasUserAuthenticated(player.getUniqueId());
+        return !zCaptcha.getInstance().getStorage().hasUserAuthenticated(player.getUniqueId());
     }
 }

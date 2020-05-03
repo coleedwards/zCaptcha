@@ -11,9 +11,7 @@ import java.util.UUID;
 public class CaptchaCheckRunnable extends BukkitRunnable {
 
     public CaptchaCheckRunnable() {
-        if (zCaptchaConfig.USE_RUNNABLE) {
-            runTaskTimerAsynchronously(zCaptcha.getInstance(), 0L, zCaptchaConfig.RUNNABLE_DELAY);
-        }
+        runTaskTimerAsynchronously(zCaptcha.getInstance(), 0L, zCaptchaConfig.RUNNABLE_DELAY);
     }
 
     @Override
