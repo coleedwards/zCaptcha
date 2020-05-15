@@ -1,8 +1,11 @@
 package com.mizuledevelopment.zcaptcha.captcha;
 
+import com.mizuledevelopment.zcaptcha.captcha.runnable.CaptchaCheckRunnable;
+import com.mizuledevelopment.zcaptcha.captcha.runnable.CaptchaCooldownRunnable;
+import com.mizuledevelopment.zcaptcha.captcha.listener.CaptchaListener;
 import com.mizuledevelopment.zcaptcha.util.ColorUtil;
-import com.mizuledevelopment.zcaptcha.zCaptcha;
-import com.mizuledevelopment.zcaptcha.zCaptchaConfig;
+import com.mizuledevelopment.zcaptcha.CaptchaPlugin;
+import com.mizuledevelopment.zcaptcha.CaptchaPluginConstants;
 import lombok.Data;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -24,7 +27,7 @@ public class CaptchaHandler {
     private Map<UUID, Long> cooldown = new HashMap<>();
 
     public CaptchaHandler() {
-        Bukkit.getServer().getPluginManager().registerEvents(new CaptchaListener(), zCaptcha.getInstance());
+        Bukkit.getServer().getPluginManager().registerEvents(new CaptchaListener(), CaptchaPlugin.getInstance());
         new CaptchaCheckRunnable();
         new CaptchaCooldownRunnable();
     }
@@ -40,7 +43,7 @@ public class CaptchaHandler {
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault(); CloseableHttpResponse response = httpClient.execute(httpPost)) {
             requiresAuth.put(player.getUniqueId(), EntityUtils.toString(response.getEntity()));
-            cooldown.put(player.getUniqueId(), System.currentTimeMillis()+ zCaptchaConfig.TIME_TO_COMPLETE);
+            cooldown.put(player.getUniqueId(), System.currentTimeMillis()+ CaptchaPluginConstants.TIME_TO_COMPLETE);
             return EntityUtils.toString(response.getEntity());
         } catch (IOException e) {
         }
@@ -63,10 +66,10 @@ public class CaptchaHandler {
     }
 
     public void completeCaptcha(Player player) {
-        player.sendMessage(ColorUtil.format(zCaptchaConfig.CAPTCHA_COMPLETED));
+        player.sendMessage(ColorUtil.format(CaptchaPluginConstants.CAPTCHA_COMPLETED));
         requiresAuth.remove(player.getUniqueId());
         cooldown.remove(player.getUniqueId());
-        zCaptcha.getInstance().getStorage().addUserAuthenticated(player.getUniqueId());
+        CaptchaPlugin.getInstance().getStorage().addUserAuthenticated(player.getUniqueId());
     }
 
 }

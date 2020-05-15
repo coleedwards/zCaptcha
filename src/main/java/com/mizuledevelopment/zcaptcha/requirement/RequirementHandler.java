@@ -2,7 +2,7 @@ package com.mizuledevelopment.zcaptcha.requirement;
 
 import com.mizuledevelopment.zcaptcha.requirement.impl.NotAuthenticatedBeforeImpl;
 import com.mizuledevelopment.zcaptcha.requirement.impl.RankRequirementImpl;
-import com.mizuledevelopment.zcaptcha.zCaptcha;
+import com.mizuledevelopment.zcaptcha.CaptchaPlugin;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,11 +20,11 @@ public class RequirementHandler {
         requirementsExist.add(new NotAuthenticatedBeforeImpl());
 
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("Vault")) {
-            requirementsExist.add(new RankRequirementImpl(zCaptcha.getInstance()));
+            requirementsExist.add(new RankRequirementImpl(CaptchaPlugin.getInstance()));
         }
 
         orgLoop:
-        for (String key : zCaptcha.getInstance().getConfig().getConfigurationSection("requirements").getKeys(false)) {
+        for (String key : CaptchaPlugin.getInstance().getConfig().getConfigurationSection("requirements").getKeys(false)) {
             for (IRequirement requirement : requirementsExist) {
                 if (requirement.getRequirementKey().equalsIgnoreCase(key)) {
                     if (requirement instanceof RankRequirementImpl && ((RankRequirementImpl) requirement).getChat() == null) {

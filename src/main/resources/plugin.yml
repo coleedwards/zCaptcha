@@ -1,5 +1,5 @@
-name: zCaptcha
-version: 1.0.2
-main: com.mizuledevelopment.zcaptcha.zCaptcha
+name: CaptchaPlugin
+version: 1.0.3
+main: com.mizuledevelopment.zcaptcha.CaptchaPlugin
 softdepend: [Vault]
 author: "Cole Edwards"

@@ -9,9 +9,9 @@ import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
-public final class zCaptcha extends JavaPlugin {
+public final class CaptchaPlugin extends JavaPlugin {
 
-    @Getter private static zCaptcha instance;
+    @Getter private static CaptchaPlugin instance;
 
     private IStorage storage;
 
